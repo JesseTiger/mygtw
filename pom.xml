@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <modules>
+    <module>gtw</module>
+    <module>account</module>
+  </modules>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.0.6.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>com.example.demo</groupId>
+  <artifactId>center</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>center</name>
+  <packaging>pom</packaging>
+
+  <properties>
+    <jjwt.version>0.9.1</jjwt.version>
+    <java-jwt.version>3.4.0</java-jwt.version>
+    <fastjson.version>1.2.26</fastjson.version>
+    <alibaba-druid.version>1.1.10</alibaba-druid.version>
+    <mybatis.version>2.0.1</mybatis.version>
+    <mybatis-plus.version>3.1.1</mybatis-plus.version>
+    <swagger.version>2.8.0</swagger.version>
+    <bouncycastle.version>1.60</bouncycastle.version>
+    <feign.version>1.4.7.RELEASE</feign.version>
+    <easyexcel.version>1.1.1</easyexcel.version>
+    <commons-codec.version>1.9</commons-codec.version>
+    <httpclient.version>4.3.1</httpclient.version>
+    <pagehelper.version>1.2.3</pagehelper.version>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <!--引入springcloud的版本-->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Finchley.SR2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>
