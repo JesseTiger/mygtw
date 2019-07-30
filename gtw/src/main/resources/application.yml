@@ -1,0 +1,22 @@
+server:
+  port: 8090
+#  servlet:
+#    context-path: /gtw
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: first
+          uri: http://localhost:8091
+          predicates:
+            - Path=/account/index/**
+
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    reactor.ipc.netty: debug

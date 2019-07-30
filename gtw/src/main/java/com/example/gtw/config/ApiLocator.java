@@ -1,6 +1,6 @@
 package com.example.gtw.config;
 
-import com.example.gtw.filter.RequestFilter;
+import com.example.gtw.filter.RequestBodyReadFilter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,19 +24,18 @@ import org.springframework.http.MediaType;
 public class ApiLocator {
 
   @Autowired
-  RequestFilter requestFilter;
+  RequestBodyReadFilter requestBodyReadFilter;
 
-  String apilocatorService = "/account/index/test";
+  String apilocatorService = "/account/index/**";
   String apilocatorUri = "http://localhost:8091";
 
+  /**
+   * route1 是get请求，get请求使用readBody会报错 route2 是post请求，Content-Type是application/x-www-form-urlencoded，readbody为String.class
+   * route3 是post请求，Content-Type是application/json,readbody为Object.class
+   */
   @Bean
   public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 
-    /**
-     * route1 是get请求，get请求使用readBody会报错
-     * route2 是post请求，Content-Type是application/x-www-form-urlencoded，readbody为String.class
-     * route3 是post请求，Content-Type是application/json,readbody为Object.class
-     */
     Builder routes = builder.routes();
     routes.route("route1",
         r -> r
@@ -44,7 +43,7 @@ public class ApiLocator {
             .and()
             .path(apilocatorService)
             .filters(f -> {
-              f.filter(requestFilter);
+              f.filter(requestBodyReadFilter);
               return f;
             })
             .uri(apilocatorUri))
@@ -62,7 +61,7 @@ public class ApiLocator {
                 .and()
                 .path(apilocatorService)
                 .filters(f -> {
-                  f.filter(requestFilter);
+                  f.filter(requestBodyReadFilter);
                   return f;
                 })
                 .uri(apilocatorUri))
@@ -79,7 +78,7 @@ public class ApiLocator {
                 .and()
                 .path(apilocatorService)
                 .filters(f -> {
-                  f.filter(requestFilter);
+                  f.filter(requestBodyReadFilter);
                   return f;
                 })
                 .uri(apilocatorUri));
@@ -88,15 +87,6 @@ public class ApiLocator {
     return routeLocator;
   }
 
-//
-//  @Bean
-//  public RouteLocator routes(RouteLocatorBuilder builder) {
-//    Builder rewrite_response_upper = builder.routes()
-//        .route("rewrite_response_upper", r -> r.host("*.rewriteresponseupper.org")
-//            .filters(f -> f.prefixPath("/httpbin")
-//                .modifyResponseBody(String.class, String.class,
-//                    (exchange, s) -> Mono.just(s.toUpperCase()))).uri(uri)
-//            .build(); return rewrite_response_upper;
-//  }
+
 }
 

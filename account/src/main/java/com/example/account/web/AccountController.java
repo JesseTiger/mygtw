@@ -1,6 +1,9 @@
 package com.example.account.web;
 
 import com.example.account.dto.TestDto;
+import com.example.account.vo.RewriteVo;
+import com.example.common.enums.RespEnums;
+import com.example.common.vo.ResultVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +20,14 @@ public class AccountController {
 
   @PostMapping("test")
   public TestDto test(@RequestBody TestDto testDto) {
+
     return new TestDto("ok");
   }
 
+  @PostMapping("rewrite")
+  public ResultVo<RewriteVo> rewrite(@RequestBody TestDto testDto) {
+    RewriteVo vo = new RewriteVo("001", "特特001");
+    return new ResultVo<>(RespEnums.SUCCESS.getCode(), RespEnums.SUCCESS.getMsg(), vo);
+  }
 
 }

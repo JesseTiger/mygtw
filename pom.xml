@@ -5,6 +5,7 @@
   <modules>
     <module>gtw</module>
     <module>account</module>
+    <module>common</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -12,7 +13,7 @@
     <version>2.0.6.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.example.demo</groupId>
+  <groupId>com.example</groupId>
   <artifactId>center</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>center</name>
