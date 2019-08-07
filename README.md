@@ -57,6 +57,7 @@ spring:
             - Path=/account/index/**
 ```
 
+
 ###### 参考
 [获取 requestBody](https://blog.51cto.com/thinklili/2329184?cid=725051)  
 [修改 responseBody](https://github.com/spring-cloud/spring-cloud-gateway/issues/47)

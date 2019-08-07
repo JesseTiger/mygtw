@@ -1,7 +1,5 @@
 package com.example.gtw.filter;
 
-import com.example.common.enums.RespEnums;
-import com.example.gtw.gtwexception.GtwException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -10,7 +8,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -37,9 +34,9 @@ public class RequestHeaderModifyFilter implements GlobalFilter, Ordered {
     String apiId = headers.getFirst("apiId");
     log.info("request origin headers is \t{}, verison is\t{},timestamp is \t{},apiId is \t{} ",
         headers.getOrigin(), version, timestamp, apiId);
-    if (StringUtils.isEmpty(version)) {
-      return GtwException.gtwFail(response, RespEnums.UNKNOW_ERROR.getCode(), RespEnums.UNKNOW_ERROR.getMsg());
-    }
+//    if (StringUtils.isEmpty(version)) {
+//      return GtwException.gtwFail(response, RespEnums.UNKNOW_ERROR.getCode(), RespEnums.UNKNOW_ERROR.getMsg());
+//    }
     // TODO: 2019-07-30 header验签处理
 
 
@@ -49,7 +46,14 @@ public class RequestHeaderModifyFilter implements GlobalFilter, Ordered {
     //将现在的request 变成 change对象
     ServerWebExchange build = exchange.mutate().request(host).build();
     return chain.filter(build);*/
-    return chain.filter(exchange);
+
+    //    //  把 reqTs 塞入 request 中
+//    // TODO: 2019-07-26 very important--------
+    ServerHttpRequest reqTs = exchange.getRequest().mutate().header("reqTs", "21321").build();
+    //将现在的request 变成 change对象
+    ServerWebExchange build = exchange.mutate().request(reqTs).build();
+    return chain.filter(build);
+//    return chain.filter(exchange);
   }
 
   @Override

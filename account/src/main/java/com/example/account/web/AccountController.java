@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2019-07-26
  */
 @RestController
-@RequestMapping("/index")
+@RequestMapping("index")
 public class AccountController {
 
   @PostMapping("test")
@@ -29,5 +29,9 @@ public class AccountController {
     RewriteVo vo = new RewriteVo("001", "特特001");
     return new ResultVo<>(RespEnums.SUCCESS.getCode(), RespEnums.SUCCESS.getMsg(), vo);
   }
-
+  @PostMapping("nodata")
+  public ResultVo nodata() {
+    RewriteVo vo = new RewriteVo("00111", "malegejiji");
+    return new ResultVo<>(RespEnums.SUCCESS.getCode(), RespEnums.SUCCESS.getMsg(), vo);
+  }
 }
