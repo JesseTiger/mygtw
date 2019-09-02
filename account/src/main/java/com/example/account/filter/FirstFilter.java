@@ -5,6 +5,7 @@ import com.example.account.web.BodyReaderHttpServletRequestWrapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Enumeration;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -24,22 +25,23 @@ public class FirstFilter implements Filter {
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-
     System.out.println("----------------------->first filter 过滤器被创建");
-
   }
 
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
       throws IOException, ServletException {
     HttpServletRequest req = (HttpServletRequest) servletRequest;
-    String requestURI = req.getRequestURI();
-    System.out.println("--------------------->过滤器：请求地址" + requestURI);
 
+    Enumeration<String> headerNames = req.getHeaderNames();
 
-    ServletRequest
+    JSONObject headers=new JSONObject();
+    while (headerNames.hasMoreElements()) {
+      String s = headerNames.nextElement();
+      headers.put(s,req.getHeader(s));
+    }
 
-        requestWrapper = new BodyReaderHttpServletRequestWrapper(req);
+    ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper(req);
     BufferedReader reader = new BufferedReader(new InputStreamReader(requestWrapper.getInputStream(), "UTF-8"));
     String temp = null;
     StringBuilder sb = new StringBuilder();
@@ -47,12 +49,15 @@ public class FirstFilter implements Filter {
       sb.append(temp);
     }
     JSONObject json = JSONObject.parseObject(sb.toString().trim());
-    System.err.println(json);
-    filterChain.doFilter(requestWrapper,servletResponse);
+    System.err.println("header is :\t" + headers);
+    System.err.println("requestBody is :\t" + json);
+
+    filterChain.doFilter(requestWrapper, servletResponse);
   }
 
   @Override
   public void destroy() {
 
   }
+
 }

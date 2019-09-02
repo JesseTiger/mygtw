@@ -15,7 +15,6 @@ import org.springframework.core.io.buffer.NettyDataBufferFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,7 +22,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
-@Component
+//@Component
+@Deprecated
 @Log4j2
 public class Modify2 implements GlobalFilter, Ordered {
 
@@ -37,7 +37,8 @@ public class Modify2 implements GlobalFilter, Ordered {
       //TODO 得到Post请求的请求参数后，做你想做的事
       if (StringUtils.isEmpty(bodyStr)) {
         JSONObject json = new JSONObject();
-        json.put("sol", "sol");
+        json.put("name", "111222");
+        json.put("phone", "121212");
         bodyStr = json.toJSONString();
       } else if ("{\"post\":\"empty\"}".equals(bodyStr)) {
         bodyStr = "{\"11\":\"11\"}";

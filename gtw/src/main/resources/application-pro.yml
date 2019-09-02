@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: first
+          uri: http://localhost:8091
+          predicates:
+            - Path=/account/index/**
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: info
+    org.springframework.http.server.reactive: info
+    org.springframework.web.reactive: info
+    reactor.ipc.netty: off
+
+
+rsa:
+  privateKey:
+    path: pem/rsa_private_key_2048.pem
+  publicKey:
+    path: pem/rsa_public_key_2048.pem
+
+jwt:
+  token:
+    exp: 2
+  reToken:
+    exp: 720
+

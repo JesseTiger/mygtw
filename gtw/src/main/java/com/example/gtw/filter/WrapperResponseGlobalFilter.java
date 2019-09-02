@@ -22,7 +22,6 @@ import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
@@ -33,7 +32,7 @@ import reactor.core.publisher.Mono;
  * @Author: ZHANGXIAOHU
  * @Date: 2019-07-24
  */
-@Component
+//@Component
 @Log4j2
 public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 

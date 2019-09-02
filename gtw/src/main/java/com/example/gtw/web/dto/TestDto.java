@@ -1,4 +1,4 @@
-package com.example.account.dto;
+package com.example.gtw.web.dto;
 
 import lombok.Data;
 
@@ -12,9 +12,6 @@ public class TestDto {
 
   private String name;
   private String phone;
-  private String youyou;
-
-
 
   public TestDto(String name, String phone) {
     this.name = name;

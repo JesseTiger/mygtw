@@ -1,6 +1,8 @@
 package com.example.gtw.filter;
 
+import com.example.gtw.feign.TestFeign;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -19,6 +21,9 @@ import reactor.core.publisher.Mono;
 @Component
 @Log4j2
 public class RequestHeaderModifyFilter implements GlobalFilter, Ordered {
+
+  @Autowired
+  TestFeign testFeign;
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -49,9 +54,17 @@ public class RequestHeaderModifyFilter implements GlobalFilter, Ordered {
 
     //    //  把 reqTs 塞入 request 中
 //    // TODO: 2019-07-26 very important--------
-    ServerHttpRequest reqTs = exchange.getRequest().mutate().header("reqTs", "21321").build();
+    ServerHttpRequest reqTs = exchange.getRequest().mutate().header("reqTs", "21321")
+
+        .build();
     //将现在的request 变成 change对象
     ServerWebExchange build = exchange.mutate().request(reqTs).build();
+
+    // FIXME: 2019-09-01 测试是否可以feign 调用
+//    TestDto testDto=new TestDto("12","35");
+//    ResultVo<RewriteVo> rewrite = testFeign.rewrite(testDto);
+//    System.err.println("filter 中 feign 调用的 结果:"+rewrite);
+
     return chain.filter(build);
 //    return chain.filter(exchange);
   }

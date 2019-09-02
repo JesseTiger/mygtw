@@ -21,11 +21,13 @@ public class AccountController {
   @PostMapping("test")
   public TestDto test(@RequestBody TestDto testDto) {
 
-    return new TestDto("ok");
+    return new TestDto("ok","12345");
   }
 
   @PostMapping("rewrite")
   public ResultVo<RewriteVo> rewrite(@RequestBody TestDto testDto) {
+    String youyou = testDto.getYouyou();
+    System.err.println("youyou参数值是 : "+youyou);
     RewriteVo vo = new RewriteVo("001", "特特001");
     return new ResultVo<>(RespEnums.SUCCESS.getCode(), RespEnums.SUCCESS.getMsg(), vo);
   }

@@ -2,3 +2,7 @@ server:
   servlet:
     context-path: /account
   port: 8091
+
+spring:
+  profiles:
+    active: dev
